@@ -1,14 +1,23 @@
 package org.example;
 
+import javax.swing.*;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\temp\\JV\\data.xls";
+        String input = FileSelector.selectFile();
+        Path path = Paths.get(input);
+        Path newPath = path.resolveSibling("newData.xls");
+        String output = newPath.toString();
 
-        List<List<String>> excelData = ReadExcelToList.readExcelToList(filepath);
+//        String filepath = input;
+
+        List<List<String>> excelData = ReadExcelToList.readExcelToList(input);
 
         List<String> flatList = excelData.stream()
                 .flatMap(List::stream)
@@ -30,7 +39,7 @@ public class Main {
 
         List<Map<String, Object>> listOfMaps = getMaps(pcIndices, flatList);
 
-        ExcelExporter.exportToExcel(listOfMaps, headersList, filepath);
+        ExcelExporter.exportToExcel(listOfMaps, headersList, output);
     }
 
 
