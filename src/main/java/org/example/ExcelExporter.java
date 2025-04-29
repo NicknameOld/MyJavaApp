@@ -33,7 +33,7 @@ public class ExcelExporter {
 
         // Заполняем данные
         for (int rowNum = 0; rowNum < data.size(); rowNum++) {
-            Row row = sheet.createRow(rowNum + 1); // +1 чтобы пропустить заголовки
+            Row row = sheet.createRow(rowNum * 2 + 1); // +1 чтобы пропустить заголовки
             Map<String, Object> rowData = data.get(rowNum);
 
             for (int colNum = 0; colNum < headers.size(); colNum++) {
